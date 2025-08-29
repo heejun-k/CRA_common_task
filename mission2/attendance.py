@@ -1,13 +1,12 @@
-def get_id(name, player_id):
+def add_id(name, player_id):
     id_cnt = len(player_id)
     if name not in player_id:
         id_cnt += 1
         player_id[name] = id_cnt
-    return player_id
 
 
 def process_oneline(name, day, days_count, player_id):
-    player_id = get_id(name, player_id)
+    add_id(name, player_id)
     current_id = player_id[name]
     if day == "wednesday":
         days_count["wed"][current_id] += 1
@@ -15,7 +14,6 @@ def process_oneline(name, day, days_count, player_id):
         days_count["weeken"][current_id] += 1
     else:
         days_count["otherdays"][current_id] += 1
-    return days_count, player_id
 
 
 def load_file():
@@ -34,10 +32,10 @@ def load_file():
                     break
                 parts = line.strip().split()
                 if len(parts) == 2:
-                    days_count, player_id = process_oneline(
-                        parts[0], parts[1], days_count, player_id
-                    )
-                    names[player_id[parts[0]]] = parts[0]
+                    current_name = parts[0]
+                    current_day = parts[1]
+                    process_oneline(current_name, current_day, days_count, player_id)
+                    names[player_id[current_name]] = current_name
     except FileNotFoundError:
         print("파일을 찾을 수 없습니다.")
     return days_count, names
