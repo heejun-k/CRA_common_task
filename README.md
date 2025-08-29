@@ -15,7 +15,7 @@
     </tr>
     <tr>
       <td>D2</td>
-      <td>X</td>
+      <td>O</td>
     </tr>
     <tr>
       <td>D3</td>
@@ -27,10 +27,12 @@
     </tr>
     <tr>
       <td>D5</td>
-      <td>X</td>
+      <td>O</td>
     </tr>
   </tbody>
 </table>
+
+
 
 ##### 참고사항: D4 Design Pattern
 -> Factory Method Pattern
