@@ -1,32 +1,31 @@
-player_id = {}
-id_cnt = 0
-
-names = [""] * 100
-wed = [0] * 100
-weeken = [0] * 100
-otherdays = [0] * 100
-
-
-def get_id(name):
-    global id_cnt
+def get_id(name, player_id):
+    id_cnt = len(player_id)
     if name not in player_id:
         id_cnt += 1
         player_id[name] = id_cnt
-        names[id_cnt] = name
-    return player_id[name]
+    return player_id
 
 
-def process_oneline(name, day):
-    current_id = get_id(name)
+def process_oneline(name, day, days_count, player_id):
+    player_id = get_id(name, player_id)
+    current_id = player_id[name]
     if day == "wednesday":
-        wed[current_id] += 1
+        days_count["wed"][current_id] += 1
     elif day == "saturday" or day == "sunday":
-        weeken[current_id] += 1
+        days_count["weeken"][current_id] += 1
     else:
-        otherdays[current_id] += 1
+        days_count["otherdays"][current_id] += 1
+    return days_count, player_id
 
 
 def load_file():
+    wed = [0] * 100
+    weeken = [0] * 100
+    otherdays = [0] * 100
+    days_count = {"wed": wed, "weeken": weeken, "otherdays": otherdays}
+    player_id = {}
+    names = {}
+
     try:
         with open("attendance_weekday_500.txt", encoding="utf-8") as f:
             for _ in range(500):
@@ -35,16 +34,24 @@ def load_file():
                     break
                 parts = line.strip().split()
                 if len(parts) == 2:
-                    process_oneline(parts[0], parts[1])
+                    days_count, player_id = process_oneline(
+                        parts[0], parts[1], days_count, player_id
+                    )
+                    names[player_id[parts[0]]] = parts[0]
     except FileNotFoundError:
         print("파일을 찾을 수 없습니다.")
+    return days_count, names
 
 
-def get_points(id):
-    point = wed[id] * 3 + weeken[id] * 2 + otherdays[id]
-    if wed[id] > 9:
+def get_points(id, days_count):
+    point = (
+        days_count["wed"][id] * 3
+        + days_count["weeken"][id] * 2
+        + days_count["otherdays"][id]
+    )
+    if days_count["wed"][id] > 9:
         point += 10
-    if weeken[id] > 9:
+    if days_count["weeken"][id] > 9:
         point += 10
     return point
 
@@ -58,13 +65,18 @@ def get_grade(point):
         return "NORMAL"
 
 
-def calculate_print():
+def calculate_print(days_count, names):
     remove_players = []
+    id_cnt = len(names)
     for i in range(1, id_cnt + 1):
-        point = get_points(i)
+        point = get_points(i, days_count)
         grade = get_grade(point)
         print(f"NAME : {names[i]}, POINT : {point}, GRADE : {grade}")
-        if grade == "NORMAL" and wed[i] == 0 and weeken[i] == 0:
+        if (
+            grade == "NORMAL"
+            and days_count["wed"][i] == 0
+            and days_count["weeken"][i] == 0
+        ):
             remove_players.append(names[i])
 
     print("\nRemoved player")
@@ -74,8 +86,8 @@ def calculate_print():
 
 
 def run():
-    load_file()
-    calculate_print()
+    days_count, names = load_file()
+    calculate_print(days_count, names)
 
 
 if __name__ == "__main__":
