@@ -1,9 +1,9 @@
 ### 공통과제
 
-##### 제출자: 김희준 (huijun.kim@samsung.com)  
+#### (0) 제출자: 김희준 (huijun.kim@samsung.com)  
 
 &nbsp;
-##### 체크리스트
+#### (1) 체크리스트
 <table>
   <thead>
     <tr>
@@ -36,16 +36,16 @@
 &nbsp;
 &nbsp;
 
-#### 참고사항: D4 Design Pattern
+#### (2) 참고사항: D4 Design Pattern
 -> Factory Method Pattern
 -> Singleton
 &nbsp;
 &nbsp;
-#### Unit Test Capture
-##### 전체
-<img width="768" height="479" alt="img" src="https://github.com/user-attachments/assets/4b7a04a5-28d3-44ba-8d3a-c9865335540c" />
+#### (3) Unit Test Capture
+##### (3-1) 전체
+<img width="500" height="300" alt="img" src="https://github.com/user-attachments/assets/4b7a04a5-28d3-44ba-8d3a-c9865335540c" />
 &nbsp;
 &nbsp;
-##### Interface
-<img width="863" height="739" alt="img_1" src="https://github.com/user-attachments/assets/fc97e72a-4f7d-4e60-af94-65f22b0f0c9c" />
+##### (3-2) Interface
+<img width="600" height="500" alt="img_1" src="https://github.com/user-attachments/assets/fc97e72a-4f7d-4e60-af94-65f22b0f0c9c" />
 
