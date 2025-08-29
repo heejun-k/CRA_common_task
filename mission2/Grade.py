@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 
 
 class Grade(ABC):
-
     @abstractmethod
     def get_grade(self):
         pass
