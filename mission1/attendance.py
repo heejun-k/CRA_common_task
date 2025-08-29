@@ -1,95 +1,82 @@
-id1 = {}
+player_id = {}
 id_cnt = 0
 
-# dat[사용자ID][요일]
-dat = [[0] * 100 for _ in range(100)]
-points = [0] * 100
-grade = [0] * 100
-names = [''] * 100
+names = [""] * 100
 wed = [0] * 100
 weeken = [0] * 100
+otherdays = [0] * 100
 
-def input2(w, wk):
+
+def get_id(name):
     global id_cnt
-
-    if w not in id1:
+    if name not in player_id:
         id_cnt += 1
-        id1[w] = id_cnt
-        names[id_cnt] = w
+        player_id[name] = id_cnt
+        names[id_cnt] = name
+    return player_id[name]
 
-    id2 = id1[w]
 
-    add_point = 0
-    index = 0
+def process_oneline(name, day):
+    current_id = get_id(name)
+    if day == "wednesday":
+        wed[current_id] += 1
+    elif day == "saturday" or day == "sunday":
+        weeken[current_id] += 1
+    else:
+        otherdays[current_id] += 1
 
-    if wk == "monday":
-        index = 0
-        add_point += 1
-    elif wk == "tuesday":
-        index = 1
-        add_point += 1
-    elif wk == "wednesday":
-        index = 2
-        add_point += 3
-        wed[id2] += 1
-    elif wk == "thursday":
-        index = 3
-        add_point += 1
-    elif wk == "friday":
-        index = 4
-        add_point += 1
-    elif wk == "saturday":
-        index = 5
-        add_point += 2
-        weeken[id2] += 1
-    elif wk == "sunday":
-        index = 6
-        add_point += 2
-        weeken[id2] += 1
 
-    dat[id2][index] += 1
-    points[id2] += add_point
-
-def input_file():
+def load_file():
     try:
-        with open("attendance_weekday_500.txt", encoding='utf-8') as f:
+        with open("attendance_weekday_500.txt", encoding="utf-8") as f:
             for _ in range(500):
                 line = f.readline()
                 if not line:
                     break
                 parts = line.strip().split()
                 if len(parts) == 2:
-                    input2(parts[0], parts[1])
-
-        for i in range(1, id_cnt + 1):
-            if dat[i][2] > 9:
-                points[i] += 10
-            if dat[i][5] + dat[i][6] > 9:
-                points[i] += 10
-
-            if points[i] >= 50:
-                grade[i] = 1
-            elif points[i] >= 30:
-                grade[i] = 2
-            else:
-                grade[i] = 0
-
-            print(f"NAME : {names[i]}, POINT : {points[i]}, GRADE : ", end="")
-            if grade[i] == 1:
-                print("GOLD")
-            elif grade[i] == 2:
-                print("SILVER")
-            else:
-                print("NORMAL")
-
-        print("\nRemoved player")
-        print("==============")
-        for i in range(1, id_cnt + 1):
-            if grade[i] not in (1, 2) and wed[i] == 0 and weeken[i] == 0:
-                print(names[i])
-
+                    process_oneline(parts[0], parts[1])
     except FileNotFoundError:
         print("파일을 찾을 수 없습니다.")
 
+
+def get_points(id):
+    point = wed[id] * 3 + weeken[id] * 2 + otherdays[id]
+    if wed[id] > 9:
+        point += 10
+    if weeken[id] > 9:
+        point += 10
+    return point
+
+
+def get_grade(point):
+    if point >= 50:
+        return "GOLD"
+    elif point >= 30:
+        return "SILVER"
+    else:
+        return "NORMAL"
+
+
+def calculate_print():
+    remove_players = []
+    for i in range(1, id_cnt + 1):
+        point = get_points(i)
+        grade = get_grade(point)
+        print(f"NAME : {names[i]}, POINT : {point}, GRADE : {grade}")
+        if grade == "NORMAL" and wed[i] == 0 and weeken[i] == 0:
+            remove_players.append(names[i])
+
+    print("\nRemoved player")
+    print("==============")
+    for rp in remove_players:
+        print(rp)
+
+
+def run():
+    load_file()
+    calculate_print()
+
+
 if __name__ == "__main__":
-    input_file()
+    run()
