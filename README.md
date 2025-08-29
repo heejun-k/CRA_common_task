@@ -1,4 +1,4 @@
-##### 공통과제
+#### 공통과제
 
 제출자: 김희준 (huijun.kim@samsung.com)
 
@@ -32,6 +32,10 @@
   </tbody>
 </table>
 
-참고사항: D4 Design Pattern
+##### 참고사항: D4 Design Pattern
 -> Factory Method Pattern
 -> Singleton
+
+##### Unit Test Capture
+![img.png](img.png)
+![img_1.png](img_1.png)

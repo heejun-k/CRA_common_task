@@ -10,7 +10,7 @@ class Player:
         self.name = name
 
     def get_points(self):
-        pass
+        return self.point
 
     def increase_day(self, day):
         if day == "wednesday":

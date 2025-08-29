@@ -16,7 +16,7 @@ def process_oneline(name, day, days_count, player_id):
         days_count["otherdays"][current_id] += 1
 
 
-def load_file():
+def load_file(file_name):
     wed = [0] * 100
     weeken = [0] * 100
     otherdays = [0] * 100
