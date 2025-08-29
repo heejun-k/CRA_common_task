@@ -2,7 +2,13 @@ from Player import *
 
 
 class AttandanceManageSystem:
+    _instance = None
     players: dict = {}
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(AttandanceManageSystem, cls).__new__(cls)
+        return cls._instance
 
     def __init__(self):
         self.players = {}
@@ -49,8 +55,7 @@ class AttandanceManageSystem:
 
         for i in range(1, self.id_cnt + 1):
             player = self.players[i]
-            player.calculate_points()
-            player.generate_grade()
+            player.check_attendance()
 
             print(
                 f"NAME : {player.name}, POINT : {player.point}, GRADE : {player.grade.get_grade()}"

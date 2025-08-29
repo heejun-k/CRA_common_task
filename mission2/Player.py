@@ -42,3 +42,7 @@ class Player:
             if self.days["wed"] == 0 and self.days["weekend"] == 0:
                 return True
         return False
+
+    def check_attendance(self):
+        self.calculate_points()
+        self.generate_grade()
