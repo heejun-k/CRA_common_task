@@ -2,6 +2,9 @@ from Grade import *
 
 
 class Player:
+    GOLD_POINTS = 50
+    SILVER_POINTS = 30
+
     def __init__(self, name, id):
         self.id = id
         self.point = 0
@@ -30,9 +33,9 @@ class Player:
             self.point += 10
 
     def generate_grade(self):
-        if self.point >= 50:
+        if self.point >= self.GOLD_POINTS:
             self.grade = GoldGrade()
-        elif self.point >= 30:
+        elif self.point >= self.SILVER_POINTS:
             self.grade = SilverGrade()
         else:
             self.grade = NormalGrade()
