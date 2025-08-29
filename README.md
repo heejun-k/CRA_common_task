@@ -1,9 +1,7 @@
 #### 공통과제
 
-제출자: 김희준 (huijun.kim@samsung.com)
-
-
-
+##### 제출자: 김희준 (huijun.kim@samsung.com)  
+  
 <table>
   <thead>
     <tr>
