@@ -40,13 +40,12 @@
 - Factory Method Pattern 
 - Singleton
 <br> 
-&nbsp;
 
 #### (3) Unit Test Capture
 ##### (3-1) 전체
 <img width="500" height="300" alt="img" src="https://github.com/user-attachments/assets/4b7a04a5-28d3-44ba-8d3a-c9865335540c" />
 
-&nbsp;
+<br> 
 
 ##### (3-2) Interface
 <img width="600" height="500" alt="img_1" src="https://github.com/user-attachments/assets/fc97e72a-4f7d-4e60-af94-65f22b0f0c9c" />
